@@ -1,5 +1,6 @@
 package com.example.pelicancross;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -7,9 +8,9 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.os.SystemClock;
+//import android.os.SystemClock;
 import android.view.View;
-import android.widget.Chronometer;
+//import android.widget.Chronometer;
 import android.widget.ImageView;
 //import android.util.Log;
 import android.widget.TextView;
@@ -21,22 +22,17 @@ public class Accelerometer extends Database implements SensorEventListener {
 	private ImageView redLight, amberLight, greenLight;
 		
 	private float lastX, lastY, lastZ;
+	private long lastUpdate = 0;
 	
 
 	private SensorManager sensorManager;
 	private Sensor accelerometer;
-	private Chronometer chronometer;
-
-	/*
-	private float deltaXMax = 0;
-	private float deltaYMax = 0;
-	private float deltaZMax = 0;
-*/
+	//private Chronometer chronometer;
 	private float deltaX = 0;
 	private float deltaY = 0;
 	private float deltaZ = 0;
 
-	private TextView currentX, currentY, currentZ;
+	private TextView currentX, currentY, currentZ, tmp;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -62,54 +58,22 @@ public class Accelerometer extends Database implements SensorEventListener {
 	
 
 	public void initializeViews() {
-		
-		chronometer = (Chronometer) findViewById(R.id.chronometer);
+
 		
 		redLight = (ImageView) findViewById(R.id.red_lgt);	
 		amberLight = (ImageView) findViewById(R.id.amber_lgt);
 		greenLight = (ImageView) findViewById(R.id.green_lgt);
-		
+		tmp = (TextView) findViewById(R.id.temp);
 		//displays x y z
 		currentX = (TextView) findViewById(R.id.currentX);
 		currentY = (TextView) findViewById(R.id.currentY);
 		currentZ = (TextView) findViewById(R.id.currentZ);
-		/*
-		maxX = (TextView) findViewById(R.id.maxX);
-		maxY = (TextView) findViewById(R.id.maxY);
-		maxZ = (TextView) findViewById(R.id.maxZ);
-		 */
 	}
 
 	public void changingLights(){		
 		//Start Red		
-			chronometer.setBase(SystemClock.elapsedRealtime());
-	        chronometer.start();
-	        	 
-	         
-	        redLight.setImageResource(R.drawable.redlight);
-        	greenLight.setImageResource(R.drawable.lightoff);
-        	amberLight.setImageResource(R.drawable.lightoff);
-	      
-	        amberLight.setImageResource(R.drawable.amberlight);
-	    	greenLight.setImageResource(R.drawable.lightoff);
-	     	redLight.setImageResource(R.drawable.lightoff);	
-		/*
-        	
-     //In 2 seconds Go Green
-         if (i == 2){
-        	}
-         //In 4 seconds Go Amber
-        if (i == 3){
-        	greenLight.setImageResource(R.drawable.greenlight);
-        	amberLight.setImageResource(R.drawable.lightoff);
-        	redLight.setImageResource(R.drawable.lightoff);}
-        //In 6 seconds Go Red again
-        if(i==4){
-        	redLight.setImageResource(R.drawable.redlight);} 
- */       //Wait 1 second and give the score
-       
-       
-	}
+
+	        }
 		
 	
 	//onResume() register the accelerometer for listening the events
@@ -139,7 +103,7 @@ public class Accelerometer extends Database implements SensorEventListener {
 		deltaX = Math.abs(lastX - event.values[0]);
 		deltaY = Math.abs(lastY - event.values[1]);
 		deltaZ = Math.abs(lastZ - event.values[2]);
-
+		
 		// if the change is below 2, it is just plain noise
 		if (deltaX < 2)
 			deltaX = 0;
@@ -153,6 +117,40 @@ public class Accelerometer extends Database implements SensorEventListener {
 		lastY = event.values[1];
 		lastZ = event.values[2];
 		
+		//Last Update represents the Chronometer and each one has a second of time
+		lastUpdate = lastUpdate+1; 
+		
+
+    	
+		if(lastUpdate>5){
+	        redLight.setImageResource(R.drawable.redlight);
+	    	greenLight.setImageResource(R.drawable.lightoff);
+	    	amberLight.setImageResource(R.drawable.lightoff);
+
+	        }
+		if(lastUpdate>10){
+	        amberLight.setImageResource(R.drawable.lightoff);
+	    	greenLight.setImageResource(R.drawable.greenlight);
+	     	redLight.setImageResource(R.drawable.lightoff);
+
+	     	}
+		if(lastUpdate>15){
+	        amberLight.setImageResource(R.drawable.amberlight);
+	    	greenLight.setImageResource(R.drawable.lightoff);
+	     	redLight.setImageResource(R.drawable.lightoff);	
+
+		}
+		if(lastUpdate>20){
+			
+	        redLight.setImageResource(R.drawable.redlight);
+	    	greenLight.setImageResource(R.drawable.lightoff);
+	    	amberLight.setImageResource(R.drawable.lightoff);
+	    	
+		    	lastUpdate=0;
+		    	Intent i = new Intent(Accelerometer.this, Ranking.class);
+				startActivity(i);
+		    }
+        
 	}
 
 	
@@ -168,27 +166,10 @@ public class Accelerometer extends Database implements SensorEventListener {
 		currentX.setText(Float.toString(deltaX));
 		currentY.setText(Float.toString(deltaY));
 		currentZ.setText(Float.toString(deltaZ));
+		tmp.setText(Float.toString(lastUpdate));
 		
 	
 	}
-
-/*	
-	// display the max x,y,z accelerometer values
-	public void displayMaxValues() {
-		if (deltaX > deltaXMax) {
-			deltaXMax = deltaX;
-			maxX.setText(Float.toString(deltaXMax));
-		}
-		if (deltaY > deltaYMax) {
-			deltaYMax = deltaY;
-			maxY.setText(Float.toString(deltaYMax));
-		}
-		if (deltaZ > deltaZMax) {
-			deltaZMax = deltaZ;
-			maxZ.setText(Float.toString(deltaZMax));
-		}
-	}
-	*/
 	public void showRank(View view){
 
 		Intent i = new Intent(Accelerometer.this, Ranking.class);
@@ -197,7 +178,6 @@ public class Accelerometer extends Database implements SensorEventListener {
          
 		
 	}
-
 	@Override
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 }
