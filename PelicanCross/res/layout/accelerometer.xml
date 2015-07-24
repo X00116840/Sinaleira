@@ -13,23 +13,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
-        
-        <TextView
-                    android:id="@+id/temp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="0.0"
-                    android:textSize="15dp" />
     
     </RelativeLayout>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/cancel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="showRank"
-        android:text="View Ranking" />
+        android:onClick="restart"
+        android:text="@string/stop" />
 
     <ImageView
         android:id="@+id/red_lgt"

@@ -5,8 +5,8 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="16"
-        android:targetSdkVersion="22" />
+        android:minSdkVersion="17"
+        android:targetSdkVersion="23" />
 
     <application
         android:allowBackup="true"
@@ -27,9 +27,9 @@
         <activity android:name="Database"></activity>    
         <activity android:name="Ranking"></activity>              
         <activity android:name="Instructions"></activity>
-        <activity android:name="Accelerometer"></activity> 
-        <activity android:name="traffic_lights"></activity> 
-        
+        <activity android:name="Accelerometer">
+            
+        </activity>        
     </application>
 
 </manifest>
