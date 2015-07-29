@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    
     package="com.example.pelicancross"
     android:versionCode="1"
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="17"
-        android:targetSdkVersion="23" />
+        android:minSdkVersion="10"
+        android:targetSdkVersion="21" />
+    
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -27,9 +30,9 @@
         <activity android:name="Database"></activity>    
         <activity android:name="Ranking"></activity>              
         <activity android:name="Instructions"></activity>
-        <activity android:name="Accelerometer">
-            
-        </activity>        
+        <activity android:name="Accelerometer"></activity> 
+        <activity android:name="traffic_lights"></activity> 
+        
     </application>
 
 </manifest>

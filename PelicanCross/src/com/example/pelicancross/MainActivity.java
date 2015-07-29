@@ -4,50 +4,105 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+//import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-
+import android.widget.Button;
 
 public class MainActivity extends Activity  {
 
-	public static int speed;
+	public int speed;
 	public static String playername;
-	String msg = "Playing: ";
-
+	String msg = "Done MA: ";
 	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);	
+		
+		
+		super.onCreate(savedInstanceState);
+		
+		//Open 1st layout
 		setContentView(R.layout.main_menu);
+		Log.d(msg, "listening");
+		//setContentView(R.layout.traffic_lights);
+		
+		mainControls();	
+		
+			
+	}
+	
+	//Main Controls PeliCross
+	protected void mainControls() {
+		
+		//find button PLAY
+		Button button1 = (Button) findViewById(R.id.button1);		
+		
+		
+	
+		//register click event with button play
+		 button1.setOnClickListener(new View.OnClickListener() {
+	           public void onClick(View v) {
+		           Intent i = new Intent(MainActivity.this, Database.class);
+		           startActivity(i);
+	           }
+	        });
+		 
+			//find button RANKING
+			Button button2 = (Button) findViewById(R.id.button2);
+			 button2.setOnClickListener(new View.OnClickListener() {
+		           public void onClick(View v) {
+		        	   
+			           Intent i = new Intent(MainActivity.this, Ranking.class);
+			           startActivity(i);
+		           }
+		        });
+			 
+			 //find button INSTRUCTIONS
+				Button button3 = (Button) findViewById(R.id.button3);
+			
+				//register click event with button play
+				 button3.setOnClickListener(new View.OnClickListener() {
+			           public void onClick(View v) {
+		        	   //open instruction's page
+			           //Intent i = new Intent(MainActivity.this, Instructions.class);
+			        	  
+			        	 Intent i = new Intent(MainActivity.this, TrafficLights.class);
+			        	      
+			           startActivity(i);
+
+			           }
+			        });
+	}
+
+
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+	
+	//Actions on the actions bar
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.action_settings) {
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
 		
 	}
-
-
-	public void play(View view){		
-		 //Intent i = new Intent(Ranking.this, Database.class);
-		Intent i = new Intent(MainActivity.this, Accelerometer.class);
-        startActivity(i);	
-        Log.d(msg, "Clicked on Play****************************************");
-	}
-	
-    public void showRank(View v) {
-    	 Intent i = new Intent(MainActivity.this, Ranking.class);
-         startActivity(i);
-         MainActivity.this.finish();
-         Log.d(msg, "Clicked on Rank ****************************************");         
-    }
-    
-	public void exitApp(View view){
-		Log.d(msg, "Game Finished ****************************************");
-		android.os.Process.killProcess(android.os.Process.myPid());
-        System.exit(1);
-	}
-	
-    public void showInstructions(View v) {
-    	Intent i = new Intent(MainActivity.this, Instructions.class);
-       startActivity(i);
-       Log.d(msg, "Showing instructions ****************************************");
-    }
-      
-	
+		
 } //End MainActivity 

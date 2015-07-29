@@ -1,6 +1,5 @@
 package com.example.pelicancross;
 
-import java.util.Date;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -8,36 +7,48 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.widget.ImageView;
-import android.util.Log;
+import android.os.Vibrator;
 import android.view.View;
+//import android.util.Log;
 import android.widget.TextView;
 
-public class Accelerometer extends MainActivity implements SensorEventListener {
-	
-	private ImageView redLight, amberLight, greenLight;
+
+public class Accelerometer extends Database implements SensorEventListener {
+		
 	private float lastX, lastY, lastZ;
-	private TextView currentX, currentY, currentZ;
+
 	private SensorManager sensorManager;
 	private Sensor accelerometer;
-	
-	
+
+	private float deltaXMax = 0;
+	private float deltaYMax = 0;
+	private float deltaZMax = 0;
+
 	private float deltaX = 0;
 	private float deltaY = 0;
 	private float deltaZ = 0;
-	
-	//Time control for the traffic lights
-	Date date = new Date(); 
-	Long time;
-	int timeChange=0;
-	private int TIME_OUT=6; 
+
+	private float vibrateThreshold = 0;
+
+	private TextView currentX, currentY, currentZ, maxX, maxY, maxZ;
+
+	public Vibrator v;
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.accelerometer);	
+		//Log.d(msg, "Open Traffic Lights");
+		
+		//setContentView(R.layout.traffic_lights);	
+		
+		
+		
 		initializeViews();
+		
+		
 		
 		sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
@@ -45,104 +56,65 @@ public class Accelerometer extends MainActivity implements SensorEventListener {
 
 			accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 			sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+			vibrateThreshold = accelerometer.getMaximumRange() / 2;
 			//Log.d(msg, "Accelerometer found");
-
-			time = (long) (((((date.getHours() * 60) + date.getMinutes())* 60 ) + date.getSeconds()));	
-
+			
 		} else {
 			// failed! we don't have an accelerometer!
 		}
+		
+		//initialize vibration
+		v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+		//Log.d(msg, "Vibration on");
+		
+
 	}	
 	
-    
-	 public void timer(){
-		Date date2; 
-		long timeAux;
 		
-		date2 = new Date(); 
-		timeAux = (long) (((((date2.getHours() * 60) + date2.getMinutes())* 60 ) + date2.getSeconds()));		
-		changingLights((int)timeAux);
-					
-		if(timeAux > time + TIME_OUT){
-			Intent i = new Intent(Accelerometer.this, Database.class);
-			startActivity(i);			         
-			Accelerometer.this.finish();
-		}			
-	 }
+	
 
 	public void initializeViews() {
-		redLight = (ImageView) findViewById(R.id.red_lgt);	
-		amberLight = (ImageView) findViewById(R.id.amber_lgt);
-		greenLight = (ImageView) findViewById(R.id.green_lgt);
-		
-		//displays x y z
 		currentX = (TextView) findViewById(R.id.currentX);
 		currentY = (TextView) findViewById(R.id.currentY);
 		currentZ = (TextView) findViewById(R.id.currentZ);
+
+		maxX = (TextView) findViewById(R.id.maxX);
+		maxY = (TextView) findViewById(R.id.maxY);
+		maxZ = (TextView) findViewById(R.id.maxZ);
+		//playing = (TextView) findViewById(R.id.playing);
 	}
-
-	public boolean changingLights(int t){
-		
-		Log.d(msg, "changingLights time = "+ t);
-		redLight.setImageResource(R.drawable.redlight);
-
- 	
-    	if(t>time + 5){
-  	        redLight.setImageResource(R.drawable.redlight);
-  	    	greenLight.setImageResource(R.drawable.lightoff);
-  	    	amberLight.setImageResource(R.drawable.lightoff);
-  	    	Log.d(msg, "REDLIGHT time = "+t);
-  	    	onPause();
-  	    	return true;
-  		}if(t>time + 4){
- 	        amberLight.setImageResource(R.drawable.amberlight);
- 	    	greenLight.setImageResource(R.drawable.lightoff);
- 	     	redLight.setImageResource(R.drawable.lightoff);	
- 	     	Log.d(msg, "AMBER time = "+t);
- 	     	return true;
- 		}if(t>time + 2){
-	        amberLight.setImageResource(R.drawable.lightoff);
-	    	greenLight.setImageResource(R.drawable.greenlight);
-	     	redLight.setImageResource(R.drawable.lightoff);
-	     	Log.d(msg, "GREEN time = "+t);
-	     	onResume();
-	     	return true;
-	     }return false;		
-	 }
-		
 
 	
 	//onResume() register the accelerometer for listening the events
 	protected void onResume() {
 		super.onResume();
-		Log.d(msg, "onResume *********************************");
 		sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-	
 	}
 
 	//onPause() unregister the accelerometer for stop listening the events
 	protected void onPause() {
 		super.onPause();
-		Log.d(msg, "onPause *********************************");
 		sensorManager.unregisterListener(this);
-        Accelerometer.this.finish();
-        Intent i = new Intent(Accelerometer.this, Database.class);
-        startActivity(i); 
 	}
 
 	
+
+
 	@Override
 	public void onSensorChanged(SensorEvent event) {
-		//Log.d(msg, "onSensorChanged *********************************");
-		timer();
+
+		// clean current values
 		displayCleanValues();
+		// display the current x,y,z accelerometer values
 		displayCurrentValues();
+		// display the max x,y,z accelerometer values
+		displayMaxValues();
 
 		// get the change of the x,y,z values of the accelerometer
 		deltaX = Math.abs(lastX - event.values[0]);
 		deltaY = Math.abs(lastY - event.values[1]);
 		deltaZ = Math.abs(lastZ - event.values[2]);
-		
+
 		// if the change is below 2, it is just plain noise
 		if (deltaX < 2)
 			deltaX = 0;
@@ -151,14 +123,15 @@ public class Accelerometer extends MainActivity implements SensorEventListener {
 		if (deltaZ < 2)
 			deltaZ = 0;
 
-
 		// set the last know values of x,y,z
 		lastX = event.values[0];
 		lastY = event.values[1];
-		lastZ = event.values[2];    
-		
-		speed=(int) (lastX+lastY+lastZ);
+		lastZ = event.values[2];
+
+		/*vibrate();*/
+
 	}
+
 
 	
 	public void displayCleanValues() {
@@ -171,23 +144,42 @@ public class Accelerometer extends MainActivity implements SensorEventListener {
 	public void displayCurrentValues() {
 		currentX.setText(Float.toString(deltaX));
 		currentY.setText(Float.toString(deltaY));
-		currentZ.setText(Float.toString(deltaZ));	
+		currentZ.setText(Float.toString(deltaZ));
+	}
+
+	// display the max x,y,z accelerometer values
+	public void displayMaxValues() {
+		if (deltaX > deltaXMax) {
+			deltaXMax = deltaX;
+			maxX.setText(Float.toString(deltaXMax));
+		}
+		if (deltaY > deltaYMax) {
+			deltaYMax = deltaY;
+			maxY.setText(Float.toString(deltaYMax));
+		}
+		if (deltaZ > deltaZMax) {
+			deltaZMax = deltaZ;
+			maxZ.setText(Float.toString(deltaZMax));
+		}
+	}
+	
+	// if the change in the accelerometer value is big enough, then vibrate!
+	// our threshold is MaxValue/2
+	public void vibrate() {
+		if ((deltaX > vibrateThreshold) || (deltaY > vibrateThreshold) || (deltaZ > vibrateThreshold)) {
+			v.vibrate(50);
+		}
+	}
+
+	public void showRank(View view){
+
+		Intent i = new Intent(Accelerometer.this, Ranking.class);
+		startActivity(i);
+         
+         
 		
 	}
 
-    public void restart(View v) {
-      	 Intent i = new Intent(Accelerometer.this, MainActivity.class);
-         startActivity(i);
-         Accelerometer.this.finish();
-      }
-    
-    @Override
-    public void onBackPressed() {
-       moveTaskToBack(true); 
-       Accelerometer.this.finish();
-    }
-    
 	@Override
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {}
-	
 }

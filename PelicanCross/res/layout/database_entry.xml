@@ -11,13 +11,11 @@
         android:layout_gravity="center"
         android:layout_weight="0.61"
         android:gravity="center"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
         android:text="@string/name"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
-        android:id="@+id/playerName"
+        android:id="@+id/player_name"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center"
@@ -30,12 +28,11 @@
     </EditText>
 
     <Button
-        android:id="@+id/buttonNext"
+        android:id="@+id/button_n"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.61"
-        android:onClick="newPlayer"
-        android:text="@string/button_next" />
-
+        android:text="@string/button_next" 
+        android:onClick="newPlayer"/>
 
 </LinearLayout>

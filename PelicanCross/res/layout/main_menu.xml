@@ -13,43 +13,33 @@
         android:orientation="vertical" >
 
         <Button
-            android:id="@+id/buttonPlay"
+            android:id="@+id/button1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:background="@color/green"
             android:text="@string/button_play"
-            android:onClick="play" />
+             />
 
         <Button
-            android:id="@+id/buttonRank"
+            android:id="@+id/button2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/darkorange"
-            android:onClick="showRank"
-            android:text="@string/button_rank" />
+            android:text="@string/button_rank"
+            android:onClick="@layout/rank" />
 
         <Button
-            android:id="@+id/buttonInstructions"
+            android:id="@+id/button3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/red"
             android:scrollHorizontally="true"
             android:text="@string/button_instructions"
-            android:onClick="showInstructions" />
-        
-        <Button
-            android:id="@+id/buttonExitApp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/blue"
-            android:scrollHorizontally="true"
-            android:text="@string/stop"
-            android:onClick="exitApp" />
+            android:onClick="@layout/instructions" />
 
     </LinearLayout>
 

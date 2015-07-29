@@ -1,6 +1,10 @@
 package com.example.pelicancross;
 
+//import java.util.List;
+
 import java.util.List;
+import java.util.Random;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,30 +18,32 @@ public class Database extends MainActivity{
 	
 	public EditText player_name;
 	public int playerspeed;
+	public String msg = "Debugging Database: ";
 	public RatingBar ratingBar;
 	public TextView pspeed, cspeed, c_player_name, champion_name;
+
+	
 	
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);	
 		
-		setContentView(R.layout.database_entry);
+		setContentView(R.layout.database_entry);	
 		
 		//find EditText player name on the screen
-		player_name = (EditText)findViewById(R.id.playerName);
-		Log.d(msg, "Speed "+speed);
+		player_name = (EditText)findViewById(R.id.player_name);
 		
 	}
-
+	
 
     public void newPlayer (View view) {
     	
-    Log.d(msg, "New Player being created");
-    	
 	   DatabaseHandler dbHandler = new DatabaseHandler(this, null, null, 1);
-	   playerspeed = Math.abs(speed);
-	   Log.d(msg, playerspeed + " speed has been added to the database");
-
+	
+	   //temporary speed random
+	   Random rm = new Random();
+	   playerspeed = rm.nextInt(50);
+	
 
 	   if(player_name.getText().toString().trim().equals("")){
 		   player_name.setError( "Please type a name!" );
@@ -53,9 +59,10 @@ public class Database extends MainActivity{
 		   
 		   Log.d(msg, playername + " has been added to the database");
 		
-		   //Intent i = new Intent(Database.this, Instructions.class);
-		   Intent i = new Intent(Database.this, Ranking.class);
+		   
+		   Intent i = new Intent(Database.this, Accelerometer.class);
 	       startActivity(i);
+	      
 	   }
 	   
 	   List<Player> list = dbHandler.getAllPlayers();
@@ -74,7 +81,10 @@ public class Database extends MainActivity{
     	   cspeed.setText("0");
     	   pspeed.setText("0");
     	   ratingBar.setRating(0);
-
+   		
+    	   Log.d(msg, "Rank Cleared (drop table)");
+    	   
+    	   
     }
 
     
@@ -102,4 +112,11 @@ public class Database extends MainActivity{
     	   String champion = (dbHandler.findChampionName());
     	   return champion;
      }
+     
+    
+    @Override
+    public void onBackPressed() {
+       moveTaskToBack(true); 
+       Database.this.finish();
+    }
 }
