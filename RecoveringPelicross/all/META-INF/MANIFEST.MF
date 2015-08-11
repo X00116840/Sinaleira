@@ -1,0 +1,81 @@
+Manifest-Version: 1.0
+Created-By: 1.0 (Android)
+
+Name: res/drawable-xxhdpi-v4/green_on.png
+SHA1-Digest: QGs7S7HWHN+Uj//zN066o93rRUE=
+
+Name: res/drawable-xxhdpi-v4/redlight.png
+SHA1-Digest: +lNH3kP07s0MgeTya0uo/AvG/BE=
+
+Name: AndroidManifest.xml
+SHA1-Digest: RB2Bz1+u2AR059lxkjK2v2Eq140=
+
+Name: res/drawable-hdpi-v4/ic_launcher.png
+SHA1-Digest: DuSQr0mKakfYPohbTFSqP1n7+1Q=
+
+Name: res/layout/rank.xml
+SHA1-Digest: OF1vo7T/ODt9XQx+5LmyMi7gRrI=
+
+Name: res/drawable-xxhdpi-v4/greenlight.png
+SHA1-Digest: bkddnVUvHSBiluFNeR/hVPuRhCk=
+
+Name: res/drawable-mdpi-v4/ic_launcher.png
+SHA1-Digest: lwGdY1iig+lM8dpbjw1fhyCxiD8=
+
+Name: res/layout/accelerometer.xml
+SHA1-Digest: l9DeuV3aj6DZcoxqPJEASqbyCWs=
+
+Name: res/menu/main.xml
+SHA1-Digest: lamfjR95gXMRCcGixR8axd5uLeo=
+
+Name: res/layout/main_menu.xml
+SHA1-Digest: 3t3RjCDteLdjVhz/17otQkDE9mg=
+
+Name: res/layout/warning.xml
+SHA1-Digest: boCetD6kSpIe8Y8so2niqRza2Pg=
+
+Name: res/drawable-xxhdpi-v4/ic_launcher.png
+SHA1-Digest: zmF8UlIjteIydORhfGGPGEUukWs=
+
+Name: res/layout/database_entry.xml
+SHA1-Digest: wujdWm1W0GlBlZ0AstCId8Tsy0o=
+
+Name: res/drawable-xxhdpi-v4/red_on.png
+SHA1-Digest: SZlIxq4RlmX9kMpiv2fj5g9EWuQ=
+
+Name: res/layout/instructions.xml
+SHA1-Digest: Yg1e9KOcyKMcouxOaTiXFfhJA+E=
+
+Name: res/drawable-xxhdpi-v4/red.png
+SHA1-Digest: 76qQfZqw19CKMxJtxmZ1yn0Rzkk=
+
+Name: res/layout/traffic_lights.xml
+SHA1-Digest: ncZccQM1BxXdMlK+Sy3I7UwSxVs=
+
+Name: res/drawable-xhdpi-v4/ic_launcher.png
+SHA1-Digest: Z5Zk0kqjuzUNHaPCI8pRfSF3FKg=
+
+Name: res/drawable-xxhdpi-v4/green.png
+SHA1-Digest: sYzzd/SZXiKAirOrdKahcdKMy8o=
+
+Name: res/drawable-xxhdpi-v4/lightoff.png
+SHA1-Digest: nWRUYZn1TrmpgyiQ0GQjyihYUuE=
+
+Name: res/drawable-xxhdpi-v4/amber_on.png
+SHA1-Digest: yb6JtKX0WvXTdQHAkV0X0pgoqlc=
+
+Name: resources.arsc
+SHA1-Digest: 1/EtrFJ4wDNnA9j9f6eUBY/H2ds=
+
+Name: res/drawable-xxhdpi-v4/button_background.png
+SHA1-Digest: /Ysnhny/2XlsSj22o7w3MMRXziY=
+
+Name: res/drawable-xxhdpi-v4/amberlight.png
+SHA1-Digest: FzSdhpkKYWz2wbdp4gZ6Tcyjr3Y=
+
+Name: classes.dex
+SHA1-Digest: yzcFMpzdwTvewYknu+SLYkaaOBg=
+
+Name: res/drawable-xxhdpi-v4/pelimad.png
+SHA1-Digest: nALfi7Lu7K3abJQQMd5BZcPRV9Q=
+

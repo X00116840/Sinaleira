@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="timer_label">false</item>
+    <item type="id" name="cancel">false</item>
+    <item type="id" name="red_lgt">false</item>
+    <item type="id" name="amber_lgt">false</item>
+    <item type="id" name="green_lgt">false</item>
+    <item type="id" name="currentX">false</item>
+    <item type="id" name="currentY">false</item>
+    <item type="id" name="currentZ">false</item>
+    <item type="id" name="textView1">false</item>
+    <item type="id" name="playerName">false</item>
+    <item type="id" name="buttonNext">false</item>
+    <item type="id" name="container">false</item>
+    <item type="id" name="buttonPlay">false</item>
+    <item type="id" name="buttonRank">false</item>
+    <item type="id" name="buttonInstructions">false</item>
+    <item type="id" name="buttonExitApp">false</item>
+    <item type="id" name="LinearLayout1">false</item>
+    <item type="id" name="buttonClearRank">false</item>
+    <item type="id" name="buttonPlayAgain">false</item>
+    <item type="id" name="timestamp">false</item>
+    <item type="id" name="currentspeed_db">false</item>
+    <item type="id" name="textView5">false</item>
+    <item type="id" name="speed_db">false</item>
+    <item type="id" name="ratingBar">false</item>
+    <item type="id" name="action_settings">false</item>
+</resources>

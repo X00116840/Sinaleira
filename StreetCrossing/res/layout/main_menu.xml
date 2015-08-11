@@ -1,0 +1,46 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.streetcrossing.MainActivity" >
+
+    <Button
+        android:id="@+id/buttonPlay"
+        android:layout_width="match_parent"
+        android:layout_height="188dp"
+        android:background="@color/green"
+        android:onClick="@layout/accelerometer"
+        android:text="@string/button_play" />
+
+    <Button
+        android:id="@+id/buttonRanking"
+        android:layout_width="match_parent"
+        android:layout_height="188dp"
+        android:background="@color/darkorange"
+        android:onClick="@layout/main_menu"
+        android:text="@string/button_ranking" />
+
+    <Button
+        android:id="@+id/buttonInstructions"
+        android:layout_width="match_parent"
+        android:layout_height="188dp"
+        android:background="@color/red"
+        android:onClick="@layout/instructions"
+        android:scrollHorizontally="true"
+        android:text="@string/button_instructions" />
+    
+    <Button
+        android:id="@+id/buttonExit"
+        android:layout_width="match_parent"
+        android:layout_height="188dp"
+        android:background="@color/blue"
+        android:onClick="@layout/main_menu"
+        android:text="@string/button_exit" />
+
+</LinearLayout>

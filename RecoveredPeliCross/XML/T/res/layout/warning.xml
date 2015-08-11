@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_gravity="center" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:layout_gravity="center" android:id="@id/red_lgt" android:paddingTop="30.0dip" android:layout_width="208.0dip" android:layout_height="248.0dip" android:src="@drawable/pelimad" android:contentDescription="@drawable/pelimad" />
+    <TextView android:textAppearance="?android:textAppearanceLarge" android:layout_gravity="center" android:id="@id/textView1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/warning1" />
+</LinearLayout>
